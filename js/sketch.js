@@ -1,6 +1,5 @@
 let scoreLeft = 0;
 let scoreRight = 0;
-
 let ball = {
   x: 0,
   y: 0,
@@ -8,6 +7,7 @@ let ball = {
   speedY: 0,
   radius: 40
 }
+let i = 0;
 
 let paddleLeft;
 let paddleRight;
@@ -32,28 +32,43 @@ class Paddle {
 
 
 function setup() {
+
   createCanvas(window.innerWidth, window.innerHeight);
   rectMode(CENTER);
   noStroke();
 
-  paddleLeft = new Paddle(30, 0, 20, 150);
-  paddleRight = new Paddle(width - 30, 0, 20, 150);
-
+  paddleLeft = new Paddle(30, height / 2, 20, 150);
+  paddleRight = new Paddle(width - 30, height / 2, 20, 150);
+  i = height / 2;
   ball.x = width / 2;
   ball.y = height / 2;
 
 }
 
 function draw() {
+
   background(0);
   fill(255);
   moveBall();
   bounceBall();
   paddleLeft.show();
-  paddleLeft.slide(mouseX);
+  if (keyIsPressed == true && keyCode === 83) {
+    i += 10;
+    paddleLeft.slide(i);
+  } else if (keyIsPressed == true && keyCode === 87) {
+    i -= 10;
+    paddleLeft.slide(i);
+  }
   paddleRight.show();
-  paddleRight.slide(mouseY);
+  if (keyIsPressed == true && keyCode === DOWN_ARROW) {
+    i += 10;
+    paddleRight.slide(i);
+  } else if (keyIsPressed == true && keyCode === UP_ARROW) {
+    i -= 10;
+    paddleRight.slide(i);
+  }
   drawElements();
+
 }
 
 function drawElements() {
